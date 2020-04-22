@@ -13,9 +13,6 @@ h1 {
     font-size: 3rem;
 } 
 
-h3 { 
-    color: red;
-}
 
 .header {
     position: relative;
@@ -34,7 +31,7 @@ text-align: center;
  Header Landing Page Styling
 ------------------------------------------------------*/
 .header-content {
-    background-image: url("../images/newspaper.jpg");
+    background-image: url("../images/philly_skyline.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
@@ -46,8 +43,15 @@ text-align: center;
 .header-content h1 {
     color: white;
     font-family: Georgia, serif;
-    font-size: 4rem;
+    font-size: 5rem;
     text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.header-content h3 {
+    color: #4aaaa5;
+    font-family: Georgia, serif;
+    font-size: 3rem;
+    text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
 }
 
 .inner {
@@ -123,7 +127,7 @@ text-align: center;
 }
 
 .navbar div.main_list ul li a:hover {
-  color: red;
+  color: green;
 }
 
 .nav-link {
