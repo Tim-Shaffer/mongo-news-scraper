@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            
+        <title>Tim Shaffer | Mongo News Scraper</title>
+
+        <!-- Link for Bootstrap Styling -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- Added link to the local css stylesheet -->
+        <link rel="stylesheet" href="../../public/assets/css/style.css">
+
+        <!-- Added link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    </head>
+
+	<body>
+
+        <header>
+
+        <!-- Adding the Bootstrap NavBar -->
+        <nav class="navbar">
+
+            <div class="container">
+     
+                <div id="mainListDiv" class="main_list">
+
+                    <ul class="nav navbar-nav navlinks">
+
+                        <li><a class="nav-link" href="/">Home</a></li>
+
+                        <li><a class="nav-link" href="/saved">Saved Articles</a></li>
+
+                        <li><a class="nav-link" href="/scrape">Scrape New Articles</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+        <!-- end of the NavBar -->
+
+        <!-- landing page section used to make scrolling possible -->
+        <!-- Responsive fixed navbar by Albi found at https://colorlib.com/wp/bootstrap-navbar/ -->
+        <div class="header-content">
+
+            <div class="inner">
+
+                <div class="container-sm">
+            
+                    <blockquote class="blockquote">
+
+                        <h1 class="mb-0">
+                            Mongo News Scraper
+                        </h1>
+
+                    </blockquote>
+
+                    <hr>
+
+                    <br><br>
+
+                    <h3>Philadelphia Inquirer Edition</h1>
+
+                </div>
+
+            </div>
+            
+        </div>
+        <!-- end of header-content -->
+
+    </header>
+
+        <div class="container-sm main-content">
+
+		    {{{ body }}}
+
+        </div>
+
+        {{!-- Sticky Footer from Portfolio --}}
+        <footer class="footer mt-auto py-3">
+
+            <div class="container-sm">
+
+                <span class="text-muted">Copyright &copy; 2020 Tim Shaffer</span>
+
+            </div>
+
+        </footer>
+
+        <!-- Function used to shrink nav bar removing paddings and adding black background -->
+        <!-- Responsive fixed navbar by Albi found at https://colorlib.com/wp/bootstrap-navbar/ -->
+        <!-- Tried to move to a js file but had issues so leaving for now until I can further troubleshoot -->
+        <script>
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 50) {
+                    $('.navbar').addClass('affix');
+                    $('.navbar').addClass('fixed-top');
+                    // $('body').css('padding-top', $('.navbar').outerHeight() + 'px');
+                } else {
+                    $('.navbar').removeClass('affix');
+                    $('.navbar').removeClass('fixed-top');
+                }
+            });
+        </script>
+
+    </body>
+
+</html>

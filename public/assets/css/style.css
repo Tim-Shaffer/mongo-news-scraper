@@ -1,0 +1,282 @@
+/* Body Content Styling */
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 34px;
+    color: #777777;
+    position: relative;
+}
+  
+/* Set Heading Text Color  */
+h1 {
+    font-family:  Georgia, Times, "Times New Romn", serif;
+    font-size: 3rem;
+} 
+
+h3 { 
+    color: red;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+}
+
+/* Footer Styling */
+footer{
+border-top: 8px solid #4aaaa5;
+background-color: #000000;
+color: #ffffff;
+text-align: center;
+}
+
+ /*----------------------------------------------------
+ Header Landing Page Styling
+------------------------------------------------------*/
+.header-content {
+    background-image: url("../images/newspaper.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    display: table;
+}
+
+.header-content h1 {
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 4rem;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.inner {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* main-content info to set background and other details */
+.main-content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-color:  #dddddd; 
+}
+
+/*----------------------------------------------------
+ Navbar Styling
+------------------------------------------------------*/
+/* Responsive fixed navbar by Albi found at https://colorlib.com/wp/bootstrap-navbar/  */
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
+/* Navbar section */
+.navbar {
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    line-height: 65px;
+    text-align: center;
+}
+
+.navbar div.container {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#mainListDiv {
+    position: absolute;
+    right: 20rem;
+}
+
+.navbar div.main_list {
+    height: 65px;
+    float: right;
+}
+
+.navbar div.main_list ul {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.navbar div.main_list ul li {
+    width: auto;
+    height: 65px;
+    padding: 0;
+    padding-right: 3rem;
+    list-style: none;
+}
+
+.navbar div.main_list ul li a {
+    text-decoration: none;
+    color: #fff;
+    line-height: 65px;
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+.navbar div.main_list ul li a:hover {
+  color: red;
+}
+
+.nav-link {
+  padding: 0;
+}
+
+.navbar {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+/* Animation */
+@-webkit-keyframes inM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes inM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes outM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes outM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes inT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes inT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes outT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes inBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes inBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes outBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+.affix {
+    padding: 0;
+    /* background-color: #ffffff; */
+    background-color: black;
+}
+
+.navbar div.main_list ul li a.active {
+  color: #4aaaa5;
+}
+
