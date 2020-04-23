@@ -1,9 +1,8 @@
 $(document).ready(function(){
     
-    // automatically scroll to the articles when the articles page is displayed
-    if (location.pathname.substring(1) === "articles") {
-        console.log("Articles Page!")
-        
+    // automatically scroll to the articles when the articles page or saved page is displayed
+    if (location.pathname.substring(1) === "articles" || location.pathname.substring(1) === "saved" ) {
+
         var section = $("#articles");
 
         $("html, body").animate({

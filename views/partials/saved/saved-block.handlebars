@@ -1,0 +1,46 @@
+{{#if this.isSaved}}
+
+  <div class="row captured-article">
+
+    <div class="col-sm-10">
+  
+    <h3> 
+      <a href="https://www.inquirer.com{{this.link}}" target="_blank">{{this.headline}}</a>
+
+    </h3>
+
+    </div>
+ 
+    <div class="col-sm-2">
+                      
+        <button data-id="{{this._id}}" class="saveArticle btn-success">Save</button>
+
+    </div>
+
+  </div>
+
+  <div class="row double-border">
+
+    <div class="col-sm-10">
+
+      <p>
+
+        {{this.summary}}
+
+        <br>
+
+        {{this.byLine}}
+
+        <br>
+
+      </p>
+
+    </div>
+
+  </div>
+
+{{/if}}
+  
+
+
+    

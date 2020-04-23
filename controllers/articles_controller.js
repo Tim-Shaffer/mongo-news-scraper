@@ -237,29 +237,29 @@ module.exports = function(app) {
     db.Article.find({isSaved: true})
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
-        res.json(dbArticle);
+        // res.json(dbArticle);
 
-      //   var articleArray = [];
-      //   for (i=0; i < dbArticle.length; i++) {
-      //     articleArray.push({
-      //       "_id": dbArticle[i]._id, 
-      //       "headline": dbArticle[i].headline, 
-      //       "link": dbArticle[i].link,
-      //       "byLine": dbArticle[i].byLine,
-      //       "summary": dbArticle[i].summary,
-      //       "isSaved": dbArticle[i].isSaved
-      //      })
-      //   };
+        var articleArray = [];
+        for (i=0; i < dbArticle.length; i++) {
+          articleArray.push({
+            "_id": dbArticle[i]._id, 
+            "headline": dbArticle[i].headline, 
+            "link": dbArticle[i].link,
+            "byLine": dbArticle[i].byLine,
+            "summary": dbArticle[i].summary,
+            "isSaved": dbArticle[i].isSaved
+           })
+        };
 
-      //   var hbsObject = {
-      //     Articles: articleArray
-      //   };
+        var hbsObject = {
+          Saved: articleArray
+        };
         
-      //   res.render("saved", hbsObject);
-      // })
-      // .catch(function(err) {
-      //   // If an error occurred, send it to the client
-      //   res.json(err);
+        res.render("saved", hbsObject);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
       });
   });
 
