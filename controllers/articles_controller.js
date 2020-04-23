@@ -10,9 +10,39 @@ module.exports = function(app) {
   // default for the index view
   app.get("/", function(req, res) {
 
-    // call the index handlebar to render the index file
-    res.render("index");
-    // res.redirect("/articles");
+    // Grab every document in the Articles collection
+    db.Article.find({})
+      .then(function(dbArticle) {
+
+        if (dbArticle.length > 0 ) {
+
+          var articleArray = [];
+          for (i=0; i < dbArticle.length; i++) {
+            articleArray.push({
+              "_id": dbArticle[i]._id, 
+              "headline": dbArticle[i].headline, 
+              "link": dbArticle[i].link,
+              "byLine": dbArticle[i].byLine,
+              "summary": dbArticle[i].summary,
+              "isSaved": dbArticle[i].isSaved
+            })
+          };
+
+          var hbsObject = {
+            Articles: articleArray
+          };
+          
+          res.render("articles", hbsObject);
+        } else {
+          res.render("index");
+        }
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+
+      // res.render("index");
 
   });
 
@@ -183,7 +213,9 @@ module.exports = function(app) {
             "_id": dbArticle[i]._id, 
             "headline": dbArticle[i].headline, 
             "link": dbArticle[i].link,
-            "byLine": dbArticle[i].byLine
+            "byLine": dbArticle[i].byLine,
+            "summary": dbArticle[i].summary,
+            "isSaved": dbArticle[i].isSaved
            })
         };
 
@@ -191,7 +223,7 @@ module.exports = function(app) {
           Articles: articleArray
         };
         
-        res.render("index", hbsObject);
+        res.render("articles", hbsObject);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client

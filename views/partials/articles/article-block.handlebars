@@ -1,6 +1,15 @@
 
-<p data-id="{{this._id}}"> 
-  <a href="{{this.link}}">{{this.headline}}</a> 
+<h1> 
+  <a href="https://www.inquirer.com{{this.link}}" target="_blank">{{this.headline}}</a>
+  {{!-- display a button to save the article when the isSaved column is false --}}
+	{{#unless this.isSaved}}
+
+		<button data-id="{{this._id}}" class="saveArticle btn-success">Save</button>
+
+	{{/unless}}
+</h1>
+<p>
+  {{this.summary}}
   <br>
   {{this.byLine}}
   <br>
