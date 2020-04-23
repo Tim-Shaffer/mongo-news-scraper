@@ -231,5 +231,53 @@ module.exports = function(app) {
       });
   });
 
+  // Route for getting all the saved Articles from the db
+  app.get("/saved", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article.find({isSaved: true})
+      .then(function(dbArticle) {
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbArticle);
+
+      //   var articleArray = [];
+      //   for (i=0; i < dbArticle.length; i++) {
+      //     articleArray.push({
+      //       "_id": dbArticle[i]._id, 
+      //       "headline": dbArticle[i].headline, 
+      //       "link": dbArticle[i].link,
+      //       "byLine": dbArticle[i].byLine,
+      //       "summary": dbArticle[i].summary,
+      //       "isSaved": dbArticle[i].isSaved
+      //      })
+      //   };
+
+      //   var hbsObject = {
+      //     Articles: articleArray
+      //   };
+        
+      //   res.render("saved", hbsObject);
+      // })
+      // .catch(function(err) {
+      //   // If an error occurred, send it to the client
+      //   res.json(err);
+      });
+  });
+
+  // Route for saving an Article
+  app.put("/saved/:id", function(req, res) {
+    // Create a new note and pass the req.body to the entry
+    
+      db.Article.updateOne({ _id: req.params.id }, {$set: {"isSaved": true}})
+      
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
 };
   
