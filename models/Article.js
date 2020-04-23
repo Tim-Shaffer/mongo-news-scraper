@@ -14,6 +14,10 @@ var ArticleSchema = new Schema({
   },
   summary: {
     type: String,
+    required: true
+  },
+  byLine: {
+    type: String,
     required: false
   },
   isSaved: {
