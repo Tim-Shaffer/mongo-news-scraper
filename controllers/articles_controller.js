@@ -12,6 +12,7 @@ module.exports = function(app) {
 
     // call the index handlebar to render the index file
     res.render("index");
+    // res.redirect("/articles");
 
   });
 
@@ -174,7 +175,23 @@ module.exports = function(app) {
     db.Article.find({})
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
-        res.json(dbArticle);
+        //res.json(dbArticle);
+
+        var articleArray = [];
+        for (i=0; i < dbArticle.length; i++) {
+          articleArray.push({
+            "_id": dbArticle[i]._id, 
+            "headline": dbArticle[i].headline, 
+            "link": dbArticle[i].link,
+            "byLine": dbArticle[i].byLine
+           })
+        };
+
+        var hbsObject = {
+          Articles: articleArray
+        };
+        
+        res.render("index", hbsObject);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
