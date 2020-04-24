@@ -25,7 +25,7 @@ var ArticleSchema = new Schema({
     type: Boolean,
     default: false
   },
-  comment: [{
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: "Comment"
   }]
