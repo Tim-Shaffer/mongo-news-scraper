@@ -306,3 +306,9 @@ text-align: center;
 .articles {
     padding-top: 100px; 
 }
+
+/* center the delete Articles button within the container */
+.deleteArticles {
+    margin:0 auto;
+    display:block;
+}

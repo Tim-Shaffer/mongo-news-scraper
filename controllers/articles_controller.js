@@ -7,11 +7,11 @@ var cheerio = require("cheerio");
 // export the constructor to make available in other files
 module.exports = function(app) {
 
-  // default for the index view
+  // default route - get all unsaved articles
   app.get("/", function(req, res) {
 
-    // Grab every document in the Articles collection
-    db.Article.find({})
+    // Grab every document in the Articles collection that was not saved
+    db.Article.find({isSaved: false})
       .then(function(dbArticle) {
 
         if (dbArticle.length > 0 ) {
@@ -33,8 +33,11 @@ module.exports = function(app) {
           };
           
           res.render("articles", hbsObject);
+
         } else {
+
           res.render("index");
+        
         }
       })
       .catch(function(err) {
@@ -45,6 +48,44 @@ module.exports = function(app) {
       // res.render("index");
 
   });
+
+    // Route for getting all Articles from the db that are not saved!
+    app.get("/articles", function(req, res) {
+
+      // Grab every document in the Articles collection
+      db.Article.find({isSaved: false})
+        .then(function(dbArticle) {
+          if (dbArticle.length > 0 ) {
+
+            var articleArray = [];
+            for (i=0; i < dbArticle.length; i++) {
+              articleArray.push({
+                "_id": dbArticle[i]._id, 
+                "headline": dbArticle[i].headline, 
+                "link": dbArticle[i].link,
+                "byLine": dbArticle[i].byLine,
+                "summary": dbArticle[i].summary,
+                "isSaved": dbArticle[i].isSaved
+              })
+            };
+  
+            var hbsObject = {
+              Articles: articleArray
+            };
+            
+            res.render("articles", hbsObject);
+  
+          } else {
+  
+            res.render("index");
+          
+          }
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
+    });
 
   // A GET route for scraping the www.inquirer.com/ website
   app.get("/scrape", function(req, res) {
@@ -199,38 +240,6 @@ module.exports = function(app) {
 
   });
 
-  // Route for getting all Articles from the db
-  app.get("/articles", function(req, res) {
-    // Grab every document in the Articles collection
-    db.Article.find({})
-      .then(function(dbArticle) {
-        // If we were able to successfully find Articles, send them back to the client
-        //res.json(dbArticle);
-
-        var articleArray = [];
-        for (i=0; i < dbArticle.length; i++) {
-          articleArray.push({
-            "_id": dbArticle[i]._id, 
-            "headline": dbArticle[i].headline, 
-            "link": dbArticle[i].link,
-            "byLine": dbArticle[i].byLine,
-            "summary": dbArticle[i].summary,
-            "isSaved": dbArticle[i].isSaved
-           })
-        };
-
-        var hbsObject = {
-          Articles: articleArray
-        };
-        
-        res.render("articles", hbsObject);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
-  });
-
   // Route for getting all the saved Articles from the db
   app.get("/saved", function(req, res) {
     // Grab every document in the Articles collection
@@ -277,6 +286,25 @@ module.exports = function(app) {
         // If an error occurred, send it to the client
         res.json(err);
       });
+  });
+  
+  // Route for removing any unsaved articles
+  app.get("/clearUnsaved", function(req, res) {
+
+    // Remove every article from the DB where the isSaved is false
+    db.Article.remove({isSaved: false}, function(error, response) {
+      // Log any errors to the console
+      if (error) {
+        // console.log(error);
+        res.send(error);
+      }
+      else {
+        // This will fire off the success function of the ajax request
+        console.log(response);
+        res.send(response);
+      }
+    });
+
   });
 
 };
