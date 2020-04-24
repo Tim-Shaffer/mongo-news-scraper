@@ -77,5 +77,20 @@ module.exports = function(app) {
       });
   });
 
+  app.get("/comments/delete/:id", function(req, res) {
+
+    db.Comment.remove({_id: req.params.id})
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      console.log("Comment deleted");
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+
+  });
+
 };
   

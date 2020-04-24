@@ -79,30 +79,47 @@ $(document).ready(function(){
 
   // When you click the savenote button
   $("#make-new").on("click", function() {
-  // Grab the id associated with the article from the submit button
-  var thisId = $(this).attr("data-id");
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
 
-  // Run a POST request to change the note, using what's entered in the inputs
-  $.ajax({
-    method: "POST",
-    url: "/comments/" + thisId,
-    data: {
-      tagLine: $("#tagLine-input").val(),
-      user: $("#user-input").val(),
-      comment: $("#comment").val()
-    }
-  })
-  // With that done
-  .then(function(data) {
-    // Log the response
-    console.log(data);
-    location.reload();
+    // Run a POST request to change the note, using what's entered in the inputs
+    $.ajax({
+      method: "POST",
+      url: "/comments/" + thisId,
+      data: {
+        tagLine: $("#tagLine-input").val(),
+        user: $("#user-input").val(),
+        comment: $("#comment").val()
+      }
+    })
+    // With that done
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      location.reload();
+    });
+
+    // Also, remove the values entered in the input and textarea for note entry
+    $("#tagLine-input").val("");
+    $("#user-input").val("");
+    $("#comment").val("");
   });
 
-  // Also, remove the values entered in the input and textarea for note entry
-  $("#tagLine-input").val("");
-  $("#user-input").val("");
-  $("#comment").val("");
-});
+  $(".deleteComment").on("click", function() {
+
+    var thisId = $(this).attr("data-id");
+
+    $.ajax({
+      method: "GET",
+      url: "/comments/delete/" + thisId
+    })
+    // With that done
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      location.reload();
+    });
+
+  });
 
 });
