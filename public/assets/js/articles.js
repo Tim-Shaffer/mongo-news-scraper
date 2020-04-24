@@ -9,10 +9,6 @@ $(document).ready(function(){
       ) {
 
     $("#articles-scroll").attr("href", "#articles");
-      
-  } else if (location.pathname.substring(1,8) === "comment") {
-    
-    $("#articles-scroll").attr("href", "/articles");
 
   };
   
@@ -26,6 +22,16 @@ $(document).ready(function(){
       });
 
       $("#articles-scroll").attr("href", "/articles");
+
+  } else if (location.pathname.substring(1,8) === "comment") {
+
+    var section = $("#comments");
+
+    $("html, body").animate({
+        scrollTop: $(section).offset().top
+    });
+
+    $("#articles-scroll").attr("href", "/articles");
 
   };
 
