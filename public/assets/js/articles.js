@@ -92,13 +92,12 @@ $(document).ready(function(){
       comment: $("#comment").val()
     }
   })
-    // With that done
-    .then(function(data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
-    });
+  // With that done
+  .then(function(data) {
+    // Log the response
+    console.log(data);
+    location.reload();
+  });
 
   // Also, remove the values entered in the input and textarea for note entry
   $("#tagLine-input").val("");
