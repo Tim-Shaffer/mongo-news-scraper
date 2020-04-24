@@ -15,19 +15,24 @@ module.exports = function(app) {
       .populate("comments")
       .then(function(dbArticle) {
 
-        console.log("Article found: " + JSON.stringify(dbArticle));
-
         if (dbArticle.length > 0 ) {
 
           var articleArray = [];
           for (i=0; i < dbArticle.length; i++) {
+            var commentArray = [];
+            for (j=0; j < dbArticle[i].comments.length; j++) {
+              commentArray.push({
+                "_id": dbArticle[i].comments[j]._id,
+                "tagLine": dbArticle[i].comments[j].tagLine,
+                "user": dbArticle[i].comments[j].user,
+                "comment": dbArticle[i].comments[j].comment,
+                "userCreated": dbArticle[i].comments[j].userCreated
+              });
+            };
             articleArray.push({
               "_id": dbArticle[i]._id, 
-              "headline": dbArticle[i].headline, 
-              "link": dbArticle[i].link,
-              "byLine": dbArticle[i].byLine,
-              "summary": dbArticle[i].summary,
-              "isSaved": dbArticle[i].isSaved
+              "headline": dbArticle[i].headline,
+              "Comments": commentArray
             })
           };
 
@@ -44,6 +49,7 @@ module.exports = function(app) {
 
         }
         
+        console.log("OBJECT:  " + JSON.stringify(hbsObject));
         return res.render("comments", hbsObject);
 
       })
