@@ -1,0 +1,73 @@
+<div class="container comments" id="comments">
+
+    {{#each Articles}}
+
+        <div class="row commented-article">
+
+            <h4>{{this.headline}}</h4>
+
+        </div>
+
+        <div class="row">
+
+            <h6>COMMENTS:</h6>
+
+        </div>
+
+        <div class="row" id="notes">
+    
+            {{#if this.Comments}}
+
+                <div class="container">
+
+                    {{#each Articles.Comments}}
+
+                        {{> comments/comments-block}}
+                        
+                    {{/each}}
+
+                </div>
+            
+            {{/if}}
+
+        </div>
+
+        <div class="row">
+
+            <div class="container">
+
+                <p>Tagline</p>
+                    
+                    <input type="text" id="tagLine-input" />
+                
+                <br>
+
+                <p>User</p>
+                    
+                    <input type="text" id="user-input" />
+                
+                <br>
+                    
+                <p>Comment</p>
+
+                    <textarea id="comment"></textarea>
+
+                <div id="buttons">
+
+                    <div id="action-button">
+
+                    <button data-id="{{this._id}}" id="make-new">Submit</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {{/each}}
+
+</div>
+
+ 

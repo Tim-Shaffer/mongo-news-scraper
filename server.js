@@ -37,6 +37,7 @@ app.set("view engine", "handlebars");
 
 // require the controller files
 require("./controllers/articles_controller.js")(app);
+require("./controllers/comments_controller.js")(app);
 
 // Start the Express app
 app.listen(PORT, function() {
