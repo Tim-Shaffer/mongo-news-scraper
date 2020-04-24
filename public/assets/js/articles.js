@@ -1,10 +1,19 @@
 $(document).ready(function(){
 
-  // when on the index or default, there aren't any articles yet so the reference will just take the user to that display of the page
-  if (location.pathname.substring(1) != "articles" && location.pathname.substring(1) != "saved") {
+  console.log(location.pathname.substring(1,8));
 
-      $("#articles-scroll").attr("href", "#articles");
+  // when on the index or default, there aren't any articles yet so the reference will just take the user to that display of the page
+  if (location.pathname.substring(1) != "articles" 
+        && location.pathname.substring(1) != "saved"
+        && location.pathname.substring(1,8) != "comment"  
+      ) {
+
+    $("#articles-scroll").attr("href", "#articles");
       
+  } else if (location.pathname.substring(1,8) === "comment") {
+    
+    $("#articles-scroll").attr("href", "/articles");
+
   };
   
   // automatically scroll to the articles when the articles page or saved page is displayed
@@ -113,10 +122,7 @@ $(document).ready(function(){
       method: "GET",
       url: "/comments/delete/" + thisId
     })
-    // With that done
     .then(function(data) {
-      // Log the response
-      console.log(data);
       location.reload();
     });
 
