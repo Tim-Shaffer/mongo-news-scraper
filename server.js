@@ -44,29 +44,4 @@ app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
 });
 
-// Trying this route here instead of in controller to see if it works!
-app.get("/comments/delete/:id", function(req, res) {
-
-  db.Comment.remove({_id: req.params.id})
-  // db.Article.find({comments: mongoose.Types.ObjectId(req.params.id)})
-  .then(function(dbComment) {
-    // If we were able to successfully update an Article, send it back to the client
-    console.log("Comment deleted");
-    // res.json(dbComment);
-    db.Article.updateOne({comments: mongoose.Types.ObjectId(req.params.id)}, 
-                          {$pull: {comments: mongoose.Types.ObjectId(req.params.id)}})
-    .then(function(dbArticle) {
-      res.json(dbArticle);  
-    })
-    .catch(function(error) {
-      // If an error occurred, send it to the client
-      res.json(error);
-    });
-  })
-  .catch(function(err) {
-    // If an error occurred, send it to the client
-    res.json(err);
-  });
-
-});
 
