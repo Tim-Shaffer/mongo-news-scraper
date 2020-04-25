@@ -32,6 +32,8 @@ module.exports = function(app) {
             articleArray.push({
               "_id": dbArticle[i]._id, 
               "headline": dbArticle[i].headline,
+              "link": dbArticle[i].link,
+              "summary": dbArticle[i].summary,
               "Comments": commentArray
             })
           };
