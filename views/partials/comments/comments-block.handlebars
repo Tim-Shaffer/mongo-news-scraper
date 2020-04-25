@@ -2,9 +2,9 @@
 
   <div class="col-sm-10">
 
-  <h4> 
-    {{this.tagLine}} 
-  </h4>
+  <h5> 
+    <strong><span class="caption-size">Caption:  {{this.tagLine}}</span></strong> 
+  </h5>
 
   </div>
 
@@ -22,15 +22,11 @@
 
     <p>
 
-      {{this.comment}}
+      <i><span class="comment-size">{{this.comment}}</span></i>
 
       <br>
 
-      {{this.user}}
-
-      <br>
-
-      {{this.userCreated}}
+      <span class="by-size">Comment by {{this.user}} on {{this.userCreated}}</span>
 
     </p>
 

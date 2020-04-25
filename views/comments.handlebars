@@ -12,7 +12,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row solid-border">
 
             <p>
 
@@ -22,7 +22,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row solid-border">
 
             <h3>COMMENTS:</h3>
 
@@ -49,24 +49,20 @@
         <div class="row">
 
             <div class="container">
-
-                <p>Tagline</p>
                     
-                    <input type="text" id="tagLine-input" />
-                
-                <br>
-
-                <p>User</p>
+                <input name="Caption" id="tagLine-input" type="text" 
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input-text" placeholder="Caption..." required/>
                     
-                    <input type="text" id="user-input" />
-                
-                <br>
+                <input name="Caption" id="user-input" type="text" 
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input-text" placeholder="Your Name..." required/>
                     
-                <p>Comment</p>
+                <textarea name="Comments" id="comment" cols="" rows=""
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    placeholder="Your comment..." required></textarea>
 
-                    <textarea id="comment"></textarea>
+                <input type="submit" id="make-new" data-id="{{this._id}}" name="send" class="submitBtn btn-success" value="Add New Comment">
 
-                <div id="buttons">
+                {{!-- <div id="buttons">
 
                     <div id="action-button">
 
@@ -74,13 +70,17 @@
 
                     </div>
 
-                </div>
+                </div> --}}
 
             </div>
 
         </div>
 
     {{/each}}
+
+    <div class="row bottom-row">
+
+    </div>
 
 </div>
 
