@@ -290,8 +290,8 @@ module.exports = function(app) {
   // Route for removing any unsaved articles
   app.get("/clearUnsaved", function(req, res) {
 
-    // Remove every article from the DB where the isSaved is false
-    db.Article.remove({isSaved: false}, function(error, response) {
+    // Remove every article from the DB where the isSaved is false and the comments array is empty!
+    db.Article.remove({isSaved: false, comments: {$exists:true , $eq:[]}}, function(error, response) {
       // Log any errors to the console
       if (error) {
         // console.log(error);
@@ -299,7 +299,6 @@ module.exports = function(app) {
       }
       else {
         // This will fire off the success function of the ajax request
-        console.log(response);
         res.send(response);
       }
     });
