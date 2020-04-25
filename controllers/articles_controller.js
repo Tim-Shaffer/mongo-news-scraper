@@ -274,7 +274,6 @@ module.exports = function(app) {
 
   // Route for saving an Article
   app.put("/saved/:id", function(req, res) {
-    // Create a new note and pass the req.body to the entry
     
       db.Article.updateOne({ _id: req.params.id }, {$set: {"isSaved": true}})
       

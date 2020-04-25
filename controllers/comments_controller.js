@@ -79,20 +79,34 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/comments/delete/:id", function(req, res) {
+  // app.get("/comments/delete/:id", function(req, res) {
+  //   // db.Comment.remove({_id: req.params.id})
+  //   db.Article.find({comments: mongoose.Types.ObjectId(req.params.id)})
+  //   .then(function(dbComment) {
+  //     // If we were able to successfully update an Article, send it back to the client
+  //     console.log("Comment deleted");
 
-    db.Comment.remove({_id: req.params.id})
-    .then(function(dbArticle) {
-      // If we were able to successfully update an Article, send it back to the client
-      console.log("Comment deleted");
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
+  //     // After removing the comment collection, remove the corresponding value if the Article Comments array
+  //     // db.Article.updateOne({comments: mongojs.ObjectId(req.params.id)}, {$pull: {"comments": mongojs.ObjectId(req.params.id)}})
+  //     db.Article.find({comments: ObjectId(req.params.id)})
+  //     .then(function(dbArticle) {
+  //       // res.json(dbArticle);
+  //       console.log("DbArticle Found" + JSON.stringify(dbArticle));
+  //     })
+  //     .catch(function(error) {
+  //       // If an error occurred, send it to the client
+  //       res.json(error);
+  //     });
 
-  });
+  //     // res.json(dbComment);
+
+  //   })
+  //   .catch(function(err) {
+  //     // If an error occurred, send it to the client
+  //     res.json(err);
+  //   });
+
+  // });
 
   // Route for changing the article to no longer being saved
   app.put("/removesaved/:id", function(req, res) {
