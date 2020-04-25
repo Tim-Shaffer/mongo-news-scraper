@@ -92,7 +92,7 @@ $(document).ready(function(){
 
   });
 
-  // When you click the savenote button
+  // When you click the make-new button
   $("#make-new").on("click", function() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
@@ -120,6 +120,7 @@ $(document).ready(function(){
     $("#comment").val("");
   });
 
+  // When you click the deleteComment button
   $(".deleteComment").on("click", function() {
 
     var thisId = $(this).attr("data-id");
@@ -130,6 +131,26 @@ $(document).ready(function(){
     })
     .then(function(data) {
       location.reload();
+    });
+
+  });
+
+  // When you click the removeSaved button
+  $(".removeSaved").on("click", function() {
+
+    // get the id set with the button
+    var id = $(this).data("id");
+
+    console.log("Saving Article with ID:  " + id)
+    // Send the PUT request to the controller
+    $.ajax("/removesaved/" + id, {
+    type: "PUT"
+    }).then(
+    function() {
+      
+      // Reload the page to get the updated list
+      location.reload();
+
     });
 
   });
