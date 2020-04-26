@@ -1,12 +1,12 @@
 <div class="container articles" id="articles">
 
-        {{#each Saved}}
+        {{#each Articles}}
 
             {{> saved/saved-block}}
             
         {{/each}}
 
-        {{#unless Saved}}
+        {{#unless Articles}}
 
             <h1>There aren't any saved articles to be viewed.</h1>
 

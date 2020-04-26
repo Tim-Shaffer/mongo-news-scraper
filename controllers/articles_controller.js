@@ -1,11 +1,33 @@
 // Require the models
 var db = require("../models");
 
+// require necessary packages
 var axios = require("axios");
 var cheerio = require("cheerio");
 
 // export the constructor to make available in other files
 module.exports = function(app) {
+
+  function buildArticles(dbArticle) {
+    var articleArray = [];
+    
+    for (i=0; i < dbArticle.length; i++) {
+      articleArray.push({
+        "_id": dbArticle[i]._id, 
+        "headline": dbArticle[i].headline, 
+        "link": dbArticle[i].link,
+        "byLine": dbArticle[i].byLine,
+        "summary": dbArticle[i].summary,
+        "isSaved": dbArticle[i].isSaved
+      })
+    };
+
+    // return an object to hold the handlebars array just built
+    return {
+      Articles: articleArray
+    };
+          
+  };
 
   // default route - get all unsaved articles
   app.get("/", function(req, res) {
@@ -13,29 +35,18 @@ module.exports = function(app) {
     // Grab every document in the Articles collection that was not saved
     db.Article.find({isSaved: false})
       .then(function(dbArticle) {
-
+        // if there is at least one article, build an array to be used by handlebars
         if (dbArticle.length > 0 ) {
 
-          var articleArray = [];
-          for (i=0; i < dbArticle.length; i++) {
-            articleArray.push({
-              "_id": dbArticle[i]._id, 
-              "headline": dbArticle[i].headline, 
-              "link": dbArticle[i].link,
-              "byLine": dbArticle[i].byLine,
-              "summary": dbArticle[i].summary,
-              "isSaved": dbArticle[i].isSaved
-            })
-          };
-
-          var hbsObject = {
-            Articles: articleArray
-          };
+          // create an object to hold the handlebars array just built
+          var hbsObject = buildArticles(dbArticle);
           
+          // send the object to the articles handlebar for display
           res.render("articles", hbsObject);
 
         } else {
 
+          // when there are no articles to display, build the index handlebar
           res.render("index");
         
         }
@@ -45,54 +56,42 @@ module.exports = function(app) {
         res.json(err);
       });
 
-      // res.render("index");
+  });
+
+  // Route for getting all Articles from the db that are not saved!
+  app.get("/articles", function(req, res) {
+
+    // Grab every document in the Articles collection that was not saved
+    db.Article.find({isSaved: false})
+      .then(function(dbArticle) {
+        // if there is at least one article, build an array to be used by handlebars
+        if (dbArticle.length > 0 ) {
+
+          // create an object to hold the handlebars array just built
+          var hbsObject = buildArticles(dbArticle);
+          
+          // send the object to the articles handlebar for display
+          res.render("articles", hbsObject);
+
+        } else {
+
+          // when there are no articles to display, build the index handlebar
+          res.render("index");
+        }
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
 
   });
 
-    // Route for getting all Articles from the db that are not saved!
-    app.get("/articles", function(req, res) {
-
-      // Grab every document in the Articles collection
-      db.Article.find({isSaved: false})
-        .then(function(dbArticle) {
-          if (dbArticle.length > 0 ) {
-
-            var articleArray = [];
-            for (i=0; i < dbArticle.length; i++) {
-              articleArray.push({
-                "_id": dbArticle[i]._id, 
-                "headline": dbArticle[i].headline, 
-                "link": dbArticle[i].link,
-                "byLine": dbArticle[i].byLine,
-                "summary": dbArticle[i].summary,
-                "isSaved": dbArticle[i].isSaved
-              })
-            };
-  
-            var hbsObject = {
-              Articles: articleArray
-            };
-            
-            res.render("articles", hbsObject);
-  
-          } else {
-  
-            res.render("index");
-          
-          }
-        })
-        .catch(function(err) {
-          // If an error occurred, send it to the client
-          res.json(err);
-        });
-    });
-
-  // A GET route for scraping the www.inquirer.com/ website
+  // GET route for scraping the www.inquirer.com/ website
   app.get("/scrape", function(req, res) {
 
-    // First, we grab the body of the html with axios
+    // grab the body of the html with axios
     axios.get("http://www.inquirer.com/").then(function(response) {
-      // Then, we load that into cheerio and save it to $ for a shorthand selector
+      // load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
 
       // Grab every 'card' that also has a 'card-content' child that also has a 'text-container' child
@@ -152,7 +151,7 @@ module.exports = function(app) {
 
         }
 
-                // If not found using the 'h3' tag, try the 'h4' heading
+          // If not found using the 'h3' tag, try the 'h4' heading
           if (!result.headline) {
           result.headline = $(this)
             .children("h4")
@@ -233,7 +232,6 @@ module.exports = function(app) {
       });
 
       // Send a message to the client
-      // res.send("Scrape Complete");
       res.redirect("/articles");
 
     });
@@ -245,25 +243,11 @@ module.exports = function(app) {
     // Grab every document in the Articles collection
     db.Article.find({isSaved: true})
       .then(function(dbArticle) {
-        // If we were able to successfully find Articles, send them back to the client
-        // res.json(dbArticle);
-
-        var articleArray = [];
-        for (i=0; i < dbArticle.length; i++) {
-          articleArray.push({
-            "_id": dbArticle[i]._id, 
-            "headline": dbArticle[i].headline, 
-            "link": dbArticle[i].link,
-            "byLine": dbArticle[i].byLine,
-            "summary": dbArticle[i].summary,
-            "isSaved": dbArticle[i].isSaved
-           })
-        };
-
-        var hbsObject = {
-          Saved: articleArray
-        };
+        // If we were able to successfully find Articles
+        // create an object to hold the handlebars array just built
+        var hbsObject = buildArticles(dbArticle);
         
+        // send the object to the saved handlebar for display
         res.render("saved", hbsObject);
       })
       .catch(function(err) {
