@@ -1,12 +1,13 @@
 // Require the models
 var db = require("../models");
 
+// require necessary package
 var mongoose = require("mongoose");
 
 // export the constructor to make available in other files
 module.exports = function(app) {
 
-  // get all comments for a given article
+  // get route for all comments for a given article
   app.get("/comment/:id", function(req, res) {
 
     // Grab the Article and Populate with the associated notes
@@ -37,12 +38,14 @@ module.exports = function(app) {
             })
           };
 
+          // create an object to hold the handlebars array just built
           var hbsObject = {
             Articles: articleArray
           };
 
         } else {
 
+          // create an object to hold the dbArticle from the find
           var hbsObject = {
             Articles: dbArticle
 
@@ -50,7 +53,7 @@ module.exports = function(app) {
 
         }
         
-        console.log("OBJECT:  " + JSON.stringify(hbsObject));
+        // send the object to the comments handlebar for display
         return res.render("comments", hbsObject);
 
       })
@@ -63,19 +66,20 @@ module.exports = function(app) {
 
   // Route for saving/updating an Article's associated Comment
   app.post("/comments/:id", function(req, res) {
-    // Create a new note and pass the req.body to the entry
+    // Create a new comment
     db.Comment.create(req.body)
+      // if comment is created, update the article to hold the id in the comments array
       .then(function(dbComment) {
         return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbComment._id }}, { new: true });
-      })
-      .then(function(dbArticle) {
-        // If we were able to successfully update an Article, send it back to the client
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
+        })
+        .then(function(dbArticle) {
+          // If we were able to successfully update an Article, send it back to the client
+          res.json(dbArticle);
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
   });
 
   // route to delete comments and remove them from the associated articles comments
@@ -101,22 +105,6 @@ module.exports = function(app) {
       res.json(err);
     });
   
-  });
-
-  // Route for changing the article to no longer being saved
-  app.put("/removesaved/:id", function(req, res) {
-    // Create a new note and pass the req.body to the entry
-    
-      db.Article.updateOne({ _id: req.params.id }, {$set: {"isSaved": false}})
-      
-      .then(function(dbArticle) {
-        // If we were able to successfully update an Article, send it back to the client
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
   });
 
 };

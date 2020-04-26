@@ -289,5 +289,21 @@ module.exports = function(app) {
 
   });
 
+  // Route for changing the article to no longer being saved
+  app.put("/removesaved/:id", function(req, res) {
+    // Create a new note and pass the req.body to the entry
+    
+      db.Article.updateOne({ _id: req.params.id }, {$set: {"isSaved": false}})
+      
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
 };
   
