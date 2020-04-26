@@ -13,6 +13,8 @@ Check back occassionally to *Scrape New Articles!*
 * [Tech Used](#tech-used)
 * [File Structure](#mvc-directory-structure)
 * [Instructions](#instructions)
+* [Challenges](#challenges)
+* [Improvements](#improvements)
 
 
 ## Deployment
@@ -226,3 +228,7 @@ The app is deployed to **HEROKU** at the following link:  https://ts-mongo-news-
 1. Now clicking the **Clear Articles** button will remove that last article from the database and the DB is completely clean...waiting for new articles to be scraped! 
 
     ![Screenshot](./z_Screenshots/ArticlesEmptySection.png)
+
+## Challenges
+
+## Improvements
