@@ -1,7 +1,10 @@
+// require necessary package
 var mongoose = require("mongoose");
 
+// Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
+// Create a new ArticleSchema object
 var ArticleSchema = new Schema({
 
   headline: {
@@ -31,6 +34,7 @@ var ArticleSchema = new Schema({
   }]
 });
 
+// Creates an Article model from the schema, using mongoose's model method
 var Article = mongoose.model("Article", ArticleSchema);
 
 // Export the Article model

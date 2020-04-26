@@ -1,7 +1,10 @@
+// require necessary package
 var mongoose = require("mongoose");
 
+// Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
+// Create a new CommentSchema object
 var CommentSchema = new Schema({
   tagLine: {
     type: String,
@@ -22,6 +25,7 @@ var CommentSchema = new Schema({
   }
 });
 
+// Creates a Comment model from the schema, using mongoose's model method
 var Comment = mongoose.model("Comment", CommentSchema);
 
 // Export the Note model
