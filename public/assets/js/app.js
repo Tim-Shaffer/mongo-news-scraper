@@ -1,6 +1,5 @@
+// When the documents are ready, establish the necessary action handlers
 $(document).ready(function(){
-
-  console.log(location.pathname.substring(1,8));
 
   // when on the index or default, there aren't any articles yet so the reference will just take the user to that display of the page
   if (location.pathname.substring(1) != "articles" 
@@ -8,6 +7,7 @@ $(document).ready(function(){
         && location.pathname.substring(1,8) != "comment"  
       ) {
 
+    // set the reference of the Articles navigation to the articles id
     $("#articles-scroll").attr("href", "#articles");
 
   };
@@ -21,9 +21,12 @@ $(document).ready(function(){
           scrollTop: $(section).offset().top
       });
 
+      // set the reference of the Articles navigation to the articles route to reload the articles page
       $("#articles-scroll").attr("href", "/articles");
 
-  } else if (location.pathname.substring(1,8) === "comment") {
+  } 
+  // automatically scroll to the comments when the comment page is displayed
+  else if (location.pathname.substring(1,8) === "comment") {
 
     var section = $("#comments");
 
@@ -31,10 +34,10 @@ $(document).ready(function(){
         scrollTop: $(section).offset().top
     });
 
+    // set the reference of the Articles navigation to the articles route to reload the articles page
     $("#articles-scroll").attr("href", "/articles");
 
   };
-
 
   // event handler for when the "save" button is clicked
   $(".saveArticle").on("click", function(event) {
@@ -42,7 +45,6 @@ $(document).ready(function(){
       // get the id set with the button
       var id = $(this).data("id");
 
-      console.log("Saving Article with ID:  " + id)
       // Send the PUT request to the controller
       $.ajax("/saved/" + id, {
       type: "PUT"
@@ -59,7 +61,7 @@ $(document).ready(function(){
   // event handler for when the "deleteArticles" button is clicked
   $(".deleteArticles").on("click", function(event) {
 
-      // Send the PUT request to the controller
+      // Send the GET request to the controller
       $.ajax("/clearUnsaved", {
       type: "GET"
       }).then(
@@ -78,26 +80,26 @@ $(document).ready(function(){
       // get the id set with the button
       var id = $(this).data("id");
 
-      // Send the PUT request to the controller
+      // Send the GET request to the controller
       $.ajax("/comment/" + id, {
       type: "GET"
       }).then(
       function(data) {
           
           // Reload the page to get the updated list
-          console.log("Made it back here!");
           location.replace("/comment/" + id);
 
       });
 
   });
 
-  // When you click the make-new button
+  // event handler for when the make-new button is clicked
   $("#make-new").on("click", function() {
-    // Grab the id associated with the article from the submit button
+    
+    // get the id set with the button
     var thisId = $(this).attr("data-id");
 
-    // Run a POST request to change the note, using what's entered in the inputs
+    // Send a POST request to create a comment with what was entered
     $.ajax({
       method: "POST",
       url: "/comments/" + thisId,
@@ -107,42 +109,42 @@ $(document).ready(function(){
         comment: $("#comment").val()
       }
     })
-    // With that done
     .then(function(data) {
-      // Log the response
-      console.log(data);
+      // Reload the page to get the updated list
       location.reload();
     });
 
-    // Also, remove the values entered in the input and textarea for note entry
+    // Remove the values entered in the inputs
     $("#tagLine-input").val("");
     $("#user-input").val("");
     $("#comment").val("");
   });
 
-  // When you click the deleteComment button
+  // event handler for when the deleteComment button is clicked
   $(".deleteComment").on("click", function() {
 
+    // get the id set with the button
     var thisId = $(this).attr("data-id");
 
+    // Send a GET request to the controller to delete the comment
     $.ajax({
       method: "GET",
       url: "/comments/delete/" + thisId
     })
     .then(function(data) {
+      // Reload the page to get the updated list
       location.reload();
     });
 
   });
 
-  // When you click the removeSaved button
+  // event handler for when the removeSaved button is clicked
   $(".removeSaved").on("click", function() {
 
     // get the id set with the button
     var id = $(this).data("id");
 
-    console.log("Saving Article with ID:  " + id)
-    // Send the PUT request to the controller
+    // Send the PUT request to the controller to change the isSaved status
     $.ajax("/removesaved/" + id, {
     type: "PUT"
     }).then(
