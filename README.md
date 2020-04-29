@@ -229,6 +229,3 @@ The app is deployed to **HEROKU** at the following link:  https://ts-mongo-news-
 
     ![Screenshot](./z_Screenshots/ArticlesEmptySection.png)
 
-## Challenges
-
-## Improvements
